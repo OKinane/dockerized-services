@@ -4,10 +4,14 @@ services:
   jdownloader-2:
     image: jlesage/jdownloader-2
     hostname: jdownloader-container
+    environment:
+      - USER_ID=${CTNUSER_INNER_UID}
+      - GROUP_ID=${CTNUSER_INNER_GID}
     ports:
       - "5800:5800"
     restart: unless-stopped
     volumes:
+      - "/etc/localtime:/etc/localtime:ro"
       - "config:/config:rw"
       - "temp_share:/output:rw"
     cap_drop:
