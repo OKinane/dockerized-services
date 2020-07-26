@@ -1,0 +1,28 @@
+version: "3.7"
+
+services:
+  jdownloader-2:
+    image: jlesage/jdownloader-2
+    hostname: jdownloader-container
+    ports:
+      - "5800:5800"
+    restart: unless-stopped
+    volumes:
+      - "config:/config:rw"
+      - "temp_share:/output:rw"
+    cap_drop:
+      - ALL
+    cap_add:
+      - CHOWN
+      - SETUID
+      - SETGID
+      - FOWNER
+      - DAC_OVERRIDE
+      
+volumes:
+  config:
+  temp_share:
+    driver_opts:
+      type: "cifs"
+      o: "username=jdownloader,password=${SHARE_CIFS_PASSWORD?Environment variable SHARE_CIFS_PASSWORD is not set},vers=3.0,uid=${CTNUSER_OUTER_UID?Environment variable CTNUSER_OUTER_UID is not set},gid=${CTNUSER_OUTER_GID?Environment variable CTNUSER_OUTER_GID is not set}"
+      device: "${SHARE_CIFS_URI}"
