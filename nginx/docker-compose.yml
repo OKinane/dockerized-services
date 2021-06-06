@@ -1,0 +1,33 @@
+version: "3.7"
+
+services:
+  nginx:
+    image: nginx:stable-alpine
+    hostname: nginx-container
+    ports:
+      - "4444:80"
+    restart: unless-stopped
+    volumes:
+      - "/etc/localtime:/etc/localtime:ro"
+      - "temp_share:/usr/share/nginx/html/temp:ro"
+      - "medialibrary_share:/usr/share/nginx/html/medialibrary:ro"
+    cap_drop:
+      - ALL
+    cap_add:
+      - CHOWN
+      - SETUID
+      - SETGID
+      - NET_BIND_SERVICE
+      
+volumes:
+  config:
+  temp_share:
+    driver_opts:
+      type: "cifs"
+      o: "username=nginx,password=${SHARE_CIFS_PASSWORD?Environment variable SHARE_CIFS_PASSWORD is not set},vers=3.0,ro,uid=${CTNUSER_OUTER_UID?Environment variable CTNUSER_OUTER_UID is not set},gid=${CTNUSER_OUTER_GID?Environment variable CTNUSER_OUTER_GID is not set}"
+      device: "${TEMP_SHARE_CIFS_URI}"
+  medialibrary_share:
+    driver_opts:
+      type: "cifs"
+      o: "username=nginx,password=${SHARE_CIFS_PASSWORD?Environment variable SHARE_CIFS_PASSWORD is not set},vers=3.0,ro,uid=${CTNUSER_OUTER_UID?Environment variable CTNUSER_OUTER_UID is not set},gid=${CTNUSER_OUTER_GID?Environment variable CTNUSER_OUTER_GID is not set}"
+      device: "${MEDIALIBRARY_SHARE_CIFS_URI}"
