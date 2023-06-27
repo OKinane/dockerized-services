@@ -7,7 +7,8 @@ services:
     hostname: scan
     environment:
       - IP=${HP_SCANNER_IP}
-      - PATTERN="scan"_dd.mm.yyyy_hh:MM:ss
+      - PATTERN="scan"_yyyy.mm.dd_hh-MM-ss
+      - CMDLINE=--label "Scan to Paperless-ngx"
       - PGID=1000
       - PUID=1000
     volumes:
