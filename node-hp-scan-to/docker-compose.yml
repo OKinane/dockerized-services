@@ -1,0 +1,15 @@
+version: "3"
+
+services:
+  node-hp-scan-to:
+    image: manuc66/node-hp-scan-to
+    container_name: node-hp-scan-to
+    hostname: scan
+    environment:
+      - IP=${HP_SCANNER_IP}
+      - PATTERN="scan"_dd.mm.yyyy_hh:MM:ss
+      - PGID=1000
+      - PUID=1000
+    volumes:
+      - /tmp:/scan
+    restart: always
