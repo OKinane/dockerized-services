@@ -8,7 +8,7 @@ services:
     environment:
       - IP=${HP_SCANNER_IP}
       - PATTERN="scan"_yyyy.mm.dd_hh-MM-ss
-      - CMDLINE=--label "Scan to Paperless-ngx"
+      - CMDLINE=--label Send_To_Paperless
       - PGID=1000
       - PUID=1000
     volumes:
