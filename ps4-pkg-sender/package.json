@@ -1,9 +1,9 @@
 {
   "dependencies": {
-    "express": "*",
-    "morgan": "*",
-    "mustache": "*",
-    "mustache-express": "*",
-    "filesize": "*"
+    "express": "4.17.1",
+    "morgan": "1.9.1",
+    "mustache": "3.0.2",
+    "mustache-express": "1.2.8",
+    "filesize": "4.1.2"
   }
 }
