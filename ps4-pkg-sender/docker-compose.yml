@@ -4,12 +4,20 @@ services:
     build: .
     container_name: pkg_sender
     volumes:
-      - ./files:/opt/apps/pkg_sender/files
+      - "medialibrary:/opt/apps/pkg_sender/files:ro"
     ports:
-      - 3333:8080
+      - 3333:3333
     environment:
-      - PORT=8080
-      - STATIC_FILES=/opt/apps/pkg_sender/files
-      - LOCALIP=192.168.0.2
-      - PS4IP=192.168.0.100
+      - PORT=3333
+      - STATIC_FILES=/opt/apps/pkg_sender/files/Games/PS4/Fake
+      - LOCALIP=${LOCALIP}
+      - PS4IP=${PS4IP}
     restart: unless-stopped
+
+volumes:
+  config:
+  medialibrary:
+    driver_opts:
+      type: "cifs"
+      o: "username=ps4pkgsender,password=${SHARE_CIFS_PASSWORD?Environment variable SHARE_CIFS_PASSWORD is not set},vers=3.0,uid=${CTNUSER_OUTER_UID?Environment variable CTNUSER_OUTER_UID is not set},gid=${CTNUSER_OUTER_GID?Environment variable CTNUSER_OUTER_GID is not set}"
+      device: "${SHARE_CIFS_URI}"
