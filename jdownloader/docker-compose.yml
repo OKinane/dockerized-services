@@ -14,8 +14,8 @@ services:
       - "/etc/localtime:/etc/localtime:ro"
       - "config:/config:rw"
       - "temp_share:/output:rw"
-    cap_drop:
-      - ALL
+#    cap_drop:
+#      - ALL
     cap_add:
       - CHOWN
       - SETUID
