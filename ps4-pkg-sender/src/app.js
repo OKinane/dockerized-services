@@ -57,6 +57,7 @@ function get_pkgs() {
         filelist.push({
           filepath: filepath,
           dir: path.dirname(filepath),
+          dirname: path.basename(path.dirname(filepath)),
           name: path.basename(filepath),
           size: filesize(stat.size)
         });
