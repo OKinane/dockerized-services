@@ -1,0 +1,11 @@
+version: '3'
+services:
+  peanut:
+    image: brandawg93/peanut:latest
+    restart: unless-stopped
+    ports:
+      - 56369:8080
+    environment:
+      - NUT_HOST=${NUT_HOST}
+      - NUT_PORT=${NUT_PORT}
+      - WEB_PORT=8080
